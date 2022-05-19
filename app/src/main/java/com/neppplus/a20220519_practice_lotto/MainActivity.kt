@@ -78,15 +78,12 @@ class MainActivity : AppCompatActivity() {
                     mWinNumList.add(randomNum)
                     break
                 }
-
             }
-
         }
-        Log.d("당첨 번호",mWinNumList.toString())
 //
 //        2. 당첨 번호 정렬 (sort) -> 작은 수 - 큰 수 -> 텍스트뷰에 표현
         mWinNumList.sort()
-        Log.d("당첨 번호",mWinNumList.toString())
+//        Log.d("당첨 번호",mWinNumList.toString())
 
 
 //        mWinNumList.forEachIndexed { index, winNum ->
@@ -119,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         for (myNum in mMyNumList )
 
             // ㄴ 내 번호를 하나씩 조회한다는 구문
-            if (mMyNumList.contains(myNum)) {
+            if (mWinNumList.contains(myNum)) {
                 correctCount++
             }
 //        순위선정 ( 텍스트뷰 출력 )
@@ -149,15 +146,15 @@ class MainActivity : AppCompatActivity() {
 
          else -> {
              loseCount++
-             Toast.makeText(this, "1등", Toast.LENGTH_SHORT).show()}
+             Toast.makeText(this, "낙첨", Toast.LENGTH_SHORT).show()}
             }
         usedMoney.text = "사용 금액 : ${NumberFormat.getInstance().format(mUserMoney)}원"
-        earnMoneyTxt.text = "${NumberFormat.getInstance().format(mEarnedMoney)}원"
+        earnMoneyTxt.text = "당첨 누적 금액 : ${NumberFormat.getInstance().format(mEarnedMoney)}원"
         winRank1.text = "1등 당첨 횟수 : ${firstCount}회"
-        winRank2.text = "2등 당첨 횟수 : ${firstCount}회"
-        winRank3.text = "3등 당첨 횟수 : ${firstCount}회"
-        winRank4.text = "4등 당첨 횟수 : ${firstCount}회"
-        winRank5.text = "5등 당첨 횟수 : ${firstCount}회"
+        winRank2.text = "2등 당첨 횟수 : ${secondCount}회"
+        winRank3.text = "3등 당첨 횟수 : ${thirdCount}회"
+        winRank4.text = "4등 당첨 횟수 : ${fourthCount}회"
+        winRank5.text = "5등 당첨 횟수 : ${fifthCount}회"
         loseRank.text = "낙첨 횟수 : ${loseCount}회"
     }
 
