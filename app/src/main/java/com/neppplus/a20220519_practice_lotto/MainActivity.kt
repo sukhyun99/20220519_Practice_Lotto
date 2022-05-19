@@ -4,16 +4,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.NumberFormatException
+import java.text.NumberFormat
 
 class MainActivity : AppCompatActivity() {
-
+//내 번호 6개 저장
+    var mMyNumList = arrayOf(3,5,7,8,9,11)
+//    var mMyNumList2 = arrayListOf<int>(3,5,7,8,9,11)
+//                                  ㄴ뒤에 값이 있기 때문에 <int>가 필요없다
     // 컴퓨터가 뽑은 당첨번호를 6개 저장할 ArrayList 만들어 주자
     val mWinNumList = ArrayList<Int>()
     //텍스트 ArrayList
     val mWinNumViewList = ArrayList<TextView>()
     //보너스 숫자 저장용 멤버 변수 생성
-    val mBonusNum = 0
+    var mBonusNum = 0
+    var mUserMoney = 0
+    var mEarnedMoney : Long = 0
+    // var mEarnedMoney = 0L
+    //                   ㄴ int 표기 가능 값 이상으로 표시하고 싶을때
+    var firstCount = 0
+    var secondCount = 0
+    var thirdCount =0
+    var fourthCount = 0
+    var fifthCount = 0
+    var loseCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,13 +99,14 @@ class MainActivity : AppCompatActivity() {
 //        3. 보너스 번호 선정
         while (true) {
             val randomNum = (Math.random()*45+1).toInt()
+
             if (!mWinNumList.contains(randomNum)) {
                 mBonusNum = randomNum
                 BonuseNum1.text = mBonusNum.toString()
                 break
             }
-
         }
+        checkLottoRang()
 
         //
 
@@ -97,7 +114,51 @@ class MainActivity : AppCompatActivity() {
 
     fun checkLottoRang() {
         //        4. 비교
+
+        var correctCount = 0
+        for (myNum in mMyNumList )
+
+            // ㄴ 내 번호를 하나씩 조회한다는 구문
+            if (mMyNumList.contains(myNum)) {
+                correctCount++
+            }
 //        순위선정 ( 텍스트뷰 출력 )
 
+        when (correctCount) {
+            6 -> {
+                mEarnedMoney += 300000000
+                firstCount++
+                Toast.makeText(this, "1등", Toast.LENGTH_SHORT).show()
+            }
+
+            5 -> { if (mMyNumList.contains(mBonusNum)){
+                mEarnedMoney += 50000000
+                secondCount++
+                Toast.makeText(this, "2등", Toast.LENGTH_SHORT).show() }
+            }
+            4 -> {
+                mEarnedMoney += 3000000
+                thirdCount++
+                Toast.makeText(this, "3등", Toast.LENGTH_SHORT).show()
+            }
+            3 -> {
+                mEarnedMoney += 50000
+                fourthCount++
+                Toast.makeText(this, "4등", Toast.LENGTH_SHORT).show()
+            }
+
+         else -> {
+             loseCount++
+             Toast.makeText(this, "1등", Toast.LENGTH_SHORT).show()}
+            }
+        usedMoney.text = "사용 금액 : ${NumberFormat.getInstance().format(mUserMoney)}원"
+        earnMoneyTxt.text = "${NumberFormat.getInstance().format(mEarnedMoney)}원"
+        winRank1.text = "1등 당첨 횟수 : ${firstCount}회"
+        winRank2.text = "2등 당첨 횟수 : ${firstCount}회"
+        winRank3.text = "3등 당첨 횟수 : ${firstCount}회"
+        winRank4.text = "4등 당첨 횟수 : ${firstCount}회"
+        winRank5.text = "5등 당첨 횟수 : ${firstCount}회"
+        loseRank.text = "낙첨 횟수 : ${loseCount}회"
     }
+
 }
