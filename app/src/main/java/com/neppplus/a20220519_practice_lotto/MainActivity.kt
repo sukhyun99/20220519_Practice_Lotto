@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     //텍스트 ArrayList
     val mWinNumViewList = ArrayList<TextView>()
     //보너스 숫자 저장용 멤버 변수 생성
-    val bonusNum = 0
+    val mBonusNum = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +71,8 @@ class MainActivity : AppCompatActivity() {
 //        2. 당첨 번호 정렬 (sort) -> 작은 수 - 큰 수 -> 텍스트뷰에 표현
         mWinNumList.sort()
         Log.d("당첨 번호",mWinNumList.toString())
-//        3. 보너스 번호 선정
+
+
 //        mWinNumList.forEachIndexed { index, winNum ->
         //                               ㄴ  index가 아닌 i 로도 표현하기도 함
 //            mWinNumViewList[index].text = winNum.toString()
@@ -79,6 +80,17 @@ class MainActivity : AppCompatActivity() {
         for ((i, winNum)in mWinNumList.withIndex()) {
             mWinNumViewList[i].text = winNum.toString()
         }
+//        3. 보너스 번호 선정
+        while (true) {
+            val randomNum = (Math.random()*45+1).toInt()
+            if (!mWinNumList.contains(randomNum)) {
+                mBonusNum = randomNum
+                BonuseNum1.text = mBonusNum.toString()
+                break
+            }
+
+        }
+
         //
 
     }
